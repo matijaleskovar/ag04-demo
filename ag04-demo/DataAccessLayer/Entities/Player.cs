@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DataAccessLayer.Entities
 {
-    public class Player
+    public class Player : BaseEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
