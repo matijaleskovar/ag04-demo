@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BusinessAccessLayer.Interfaces;
 using BusinessAccessLayer.Services;
+using DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -23,10 +24,23 @@ namespace ag04_demo.Controllers
         }
 
         [HttpGet]
-        public bool Get()
+        public bool GetPlayer(int id)
         {
             throw new NotImplementedException();
 
+        }
+
+        [HttpPost]
+        public ActionResult SignInPlayer(PlayerSignInReqModel playerData)
+        {
+            var result = _playerService.PlayerSignUp(playerData);
+
+            if(result.PlayerAlreadyExist)
+            {
+                return Conflict(result.Error);
+            }
+
+            return Created(new Uri($"/player/player-{result.PlayerId.ToString()}", UriKind.Relative), result.PlayerId);
         }
     }
 }

@@ -8,9 +8,13 @@ namespace DataAccessLayer
 {
     public class DemoContext : DbContext
     {
-        public DemoContext(DbContextOptions options) : base(options)
+        public DemoContext()
         {
         }
+
+        //public DemoContext(DbContextOptions options) : base(options)
+        //{
+        //}
 
         public DbSet<Player> Player { get; set; }
     }
