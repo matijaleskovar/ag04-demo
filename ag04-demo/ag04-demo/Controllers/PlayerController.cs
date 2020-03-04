@@ -24,9 +24,16 @@ namespace ag04_demo.Controllers
         }
 
         [HttpGet]
-        public bool GetPlayer(int id)
+        public ActionResult GetPlayer(int id)
         {
-            throw new NotImplementedException();
+            var result = _playerService.GetPlayerProfile(id);
+
+            if (result.Id == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
 
         }
 

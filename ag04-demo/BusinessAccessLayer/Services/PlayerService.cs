@@ -45,7 +45,25 @@ namespace BusinessAccessLayer.Services
 
         public PlayerProfileRespModel GetPlayerProfile(int id)
         {
-            return null;
+            var result = new PlayerProfileRespModel();
+
+            using (var context = new DemoContext())
+            {
+                var entity = context.Player.FirstOrDefault(x => x.Id == id);
+
+                if (entity != null)
+                {
+                    result.Id = entity.Id;
+                    result.Email = entity.Email;
+                    result.Name = entity.Name;
+                }
+                else
+                {
+                    result.Id = 0;
+                }
+            }
+
+            return result;
         }
     }
 }
