@@ -14,6 +14,6 @@ namespace DTO.Player.Response
         [JsonProperty(PropertyName = "game_id")]
         public int GameId { get; set; }
         [JsonProperty(PropertyName = "starting")]
-        public string StartingPlayer { get; set; }
+        public int StartingPlayer { get; set; }
     }
 }

@@ -31,7 +31,7 @@ namespace ag04_demo.Controllers
 
             if (result.Id == 0)
             {
-                // It would be better 204 No Content, 404 is for missing endpoint
+                //It would be better 204 No Content, 404 is for missing endpoint
                 return NotFound();
             }
 
@@ -48,7 +48,7 @@ namespace ag04_demo.Controllers
                 return Conflict(result.Error);
             }
 
-            return Created(new Uri($"/player/player-{result.PlayerId.ToString()}", UriKind.Relative), result.PlayerId);
+            return Created(new Uri($"/player/{result.PlayerId.ToString()}", UriKind.Relative), result.PlayerId);
         }
 
         [Route("list")]
@@ -68,11 +68,11 @@ namespace ag04_demo.Controllers
 
             if (result.Data.GameId == 0)
             {
-                // It would be better 204 No Content, 404 is for missing endpoint
+                //It would be better 204 No Content, 404 is for missing endpoint
                 return NotFound(result.Error);
             }
 
-            return Ok(result.Data);
+            return Created(new Uri($"/game/{result.Data.GameId.ToString()}", UriKind.Relative), result.Data);
         }
     }
 }

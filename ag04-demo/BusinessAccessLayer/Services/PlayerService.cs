@@ -159,11 +159,16 @@ namespace BusinessAccessLayer.Services
                     {
                         transaction.Rollback();
                     }
+
+                    result.Data.PlayerId = reqModel.PlayerId;
+                    result.Data.OpponentId = reqModel.OpponentId;
+                    result.Data.GameId = game.Id;
+                    result.Data.StartingPlayer = RandomStartPlayer(reqModel.PlayerId, reqModel.OpponentId);
                 }
             }
             else
             {
-                result.Error.ErrorArg = "player-1";
+                result.Error.ErrorArg = reqModel.PlayerId.ToString();
                 result.Error.ErrorCode = "error.unknown-user-id";
             }
 
@@ -187,6 +192,21 @@ namespace BusinessAccessLayer.Services
             }
 
             return result;
+        }
+
+        private int RandomStartPlayer(int playerId1, int playerId2)
+        {
+            Random random = new Random();
+            int number = random.Next(1, 10);
+
+            if(number <= 5)
+            {
+                return playerId1;
+            }
+            else 
+            {
+                return playerId2;
+            }
         }
     }
 }
