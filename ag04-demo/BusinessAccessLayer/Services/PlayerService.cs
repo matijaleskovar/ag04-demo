@@ -12,6 +12,12 @@ namespace BusinessAccessLayer.Services
 {
     public class PlayerService : IPlayerService
     {
+        private readonly DemoContext _context;
+
+        public PlayerService(DemoContext context)
+        {
+            _context = context;
+        }
         public PlayerSignInRespModel PlayerSignUp(PlayerSignInReqModel reqModel)
         {
             var result = new PlayerSignInRespModel();
@@ -22,22 +28,19 @@ namespace BusinessAccessLayer.Services
             entity.CreatedUTC = DateTime.UtcNow;
             entity.ModifiedUTC = DateTime.UtcNow;
 
-            using (var context = new DemoContext())
+            if (_context.Players.Any(x => x.Email == reqModel.Email))
             {
-                if (context.Players.Any(x => x.Email == reqModel.Email))
-                {
-                    result.PlayerAlreadyExist = true;
+                result.PlayerAlreadyExist = true;
 
-                    result.Error.ErrorArg = reqModel.Email;
-                    result.Error.ErrorCode = "error.username-already-taken";
-                }
-                else
-                {
-                    context.Players.Add(entity);
-                    context.SaveChanges();
+                result.Error.ErrorArg = reqModel.Email;
+                result.Error.ErrorCode = "error.username-already-taken";
+            }
+            else
+            {
+                _context.Players.Add(entity);
+                _context.SaveChanges();
 
-                    result.PlayerId = entity.Id;
-                }
+                result.PlayerId = entity.Id;
             }
 
             return result;
@@ -47,19 +50,39 @@ namespace BusinessAccessLayer.Services
         {
             var result = new PlayerProfileRespModel();
 
-            using (var context = new DemoContext())
-            {
-                var entity = context.Players.FirstOrDefault(x => x.Id == id);
+            var player = _context.Players.FirstOrDefault(x => x.Id == id);
 
-                if (entity != null)
+            if (player != null)
+            {
+                result.Id = player.Id;
+                result.Email = player.Email;
+                result.Name = player.Name;
+            }
+            else
+            {
+                result.Id = 0;
+            }
+
+            return result;
+        }
+
+        public List<PlayerProfileRespModel> GetAllPlayerProfiles()
+        {
+            var result = new List<PlayerProfileRespModel>();
+
+            var playerList = _context.Players.ToList();
+
+            if (playerList != null)
+            {
+                foreach (var item in playerList)
                 {
-                    result.Id = entity.Id;
-                    result.Email = entity.Email;
-                    result.Name = entity.Name;
-                }
-                else
-                {
-                    result.Id = 0;
+                    var player = new PlayerProfileRespModel();
+
+                    player.Id = item.Id;
+                    player.Email = item.Email;
+                    player.Name = item.Name;
+
+                    result.Add(player);
                 }
             }
 

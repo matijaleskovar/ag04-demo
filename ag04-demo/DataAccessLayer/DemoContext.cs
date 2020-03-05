@@ -8,10 +8,6 @@ namespace DataAccessLayer
 {
     public class DemoContext : DbContext
     {
-        public DemoContext()
-        {
-        }
-
         public DemoContext(DbContextOptions options) : base(options)
         {
         }

@@ -10,5 +10,6 @@ namespace BusinessAccessLayer.Interfaces
     {
         public PlayerSignInRespModel PlayerSignUp( PlayerSignInReqModel reqModel);
         public PlayerProfileRespModel GetPlayerProfile(int id);
+        public List<PlayerProfileRespModel> GetAllPlayerProfiles();
     }
 }

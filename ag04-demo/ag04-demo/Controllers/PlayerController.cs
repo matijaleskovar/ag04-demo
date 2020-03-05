@@ -50,5 +50,16 @@ namespace ag04_demo.Controllers
 
             return Created(new Uri($"/player/player-{result.PlayerId.ToString()}", UriKind.Relative), result.PlayerId);
         }
+
+        [Route("list")]
+        [HttpGet]
+        public ActionResult GetPlayers()
+        
+        {
+            var result = _playerService.GetAllPlayerProfiles();
+
+            return Ok(result);
+
+        }
     }
 }
