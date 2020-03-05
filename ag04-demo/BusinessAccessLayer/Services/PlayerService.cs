@@ -111,7 +111,7 @@ namespace BusinessAccessLayer.Services
                 {
                     try
                     {
-                        //Create game
+                        //Create Game
                         game.CreatedUTC = DateTime.UtcNow;
                         game.ModifiedUTC = DateTime.UtcNow;
                         game.PlayerId = reqModel.PlayerId;
@@ -121,7 +121,7 @@ namespace BusinessAccessLayer.Services
                         _context.Add(game);
                         _context.SaveChanges();
 
-                        //Create boards
+                        //Create Boards
                         boardList.Add(new Board()
                         {
                             CreatedUTC = DateTime.UtcNow,
