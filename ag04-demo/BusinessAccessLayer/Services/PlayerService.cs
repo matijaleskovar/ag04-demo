@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using DTO.Player.Request;
+using BusinessAccessLayer.Helpers;
 
 namespace BusinessAccessLayer.Services
 {
@@ -92,8 +93,100 @@ namespace BusinessAccessLayer.Services
 
         public PlayerChallengeRespModel ChallengePlayer(PlayerChallengeReqModel reqModel)
         {
-            return null;
+            var result = new PlayerChallengeRespModel();
+
+            var game = new Game();
+            var boardList = new List<Board>();
+            List<PointCoordinate> pointCoordinateList;
+
+            //Check if players exists
+            if (_context.Players.Any(x => x.Id == reqModel.PlayerId) && _context.Players.Any(x => x.Id == reqModel.OpponentId))
+            {
+                using (var transaction = _context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        //Create game
+                        game.CreatedUTC = DateTime.UtcNow;
+                        game.ModifiedUTC = DateTime.UtcNow;
+                        game.PlayerId = reqModel.PlayerId;
+                        game.OpponentId = reqModel.OpponentId;
+                        game.GameStatusId = (int)Enums.GameStatus.InProgress;
+
+                        _context.Add(game);
+                        _context.SaveChanges();
+
+                        //Create boards
+                        boardList.Add(new Board()
+                        {
+                            CreatedUTC = DateTime.UtcNow,
+                            ModifiedUTC = DateTime.UtcNow,
+                            PlayerId = reqModel.PlayerId,
+                            GameId = game.Id
+                        });
+
+                        boardList.Add(new Board()
+                        {
+                            CreatedUTC = DateTime.UtcNow,
+                            ModifiedUTC = DateTime.UtcNow,
+                            PlayerId = reqModel.OpponentId,
+                            GameId = game.Id
+                        });
+
+                        foreach (var board in boardList)
+                        {
+                            _context.Add(board);
+                        }
+
+                        _context.SaveChanges();
+
+                        //Create PointCoordinates
+                        foreach (var board in boardList)
+                        {
+                            pointCoordinateList = SetRandomShipPoints(board.Id);
+
+                            foreach (var point in pointCoordinateList)
+                            {
+                                _context.Add(point);
+                            }
+                        }
+
+                        _context.SaveChanges();
+
+                        transaction.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                    }
+                }
+            }
+            else
+            {
+                result.Error.ErrorArg = "player-1";
+                result.Error.ErrorCode = "error.unknown-user-id";
+            }
+
+            return result;
         }
 
+        //Mock algorithm, just for demo purpose to fill some random data
+        private List<PointCoordinate> SetRandomShipPoints(int boardId)
+        {
+            var result = new List<PointCoordinate>();
+
+            for(int i = 1; i <= 4; i++)
+            {
+                result.Add(new PointCoordinate() { 
+                BoardId = boardId,
+                AxisX = i,
+                AxisY = i,
+                Hit = false,
+                ShipTypeId = (int)Enums.ShipType.PatrolCraft
+                });
+            }
+
+            return result;
+        }
     }
 }
