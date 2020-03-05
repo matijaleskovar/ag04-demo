@@ -31,6 +31,7 @@ namespace ag04_demo
         {
             services.AddDbContext<DemoContext>(options => options.UseSqlServer(Configuration["ConnectionString:AG04Demo"]));
             services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddScoped<IPlayerService, PlayerService>();
         }
 

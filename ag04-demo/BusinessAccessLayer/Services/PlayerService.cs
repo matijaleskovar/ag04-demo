@@ -34,8 +34,11 @@ namespace BusinessAccessLayer.Services
             {
                 result.PlayerAlreadyExist = true;
 
-                result.Error.ErrorArg = reqModel.Email;
-                result.Error.ErrorCode = "error.username-already-taken";
+                result.Error = new SimpleError()
+                {
+                    ErrorArg = reqModel.Email,
+                    ErrorCode = "error.username-already-taken"
+                };
             }
             else
             {
@@ -98,9 +101,11 @@ namespace BusinessAccessLayer.Services
             var game = new Game();
             var boardList = new List<Board>();
             List<PointCoordinate> pointCoordinateList;
+            var player = _context.Players.FirstOrDefault(x => x.Id == reqModel.PlayerId);
+            var opponent = _context.Players.FirstOrDefault(x => x.Id == reqModel.OpponentId);
 
             //Check if players exists
-            if (_context.Players.Any(x => x.Id == reqModel.PlayerId) && _context.Players.Any(x => x.Id == reqModel.OpponentId))
+            if (player != null && opponent != null)
             {
                 using (var transaction = _context.Database.BeginTransaction())
                 {
@@ -155,21 +160,27 @@ namespace BusinessAccessLayer.Services
 
                         transaction.Commit();
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
                         transaction.Rollback();
                     }
 
-                    result.Data.PlayerId = reqModel.PlayerId;
-                    result.Data.OpponentId = reqModel.OpponentId;
-                    result.Data.GameId = game.Id;
-                    result.Data.StartingPlayer = RandomStartPlayer(reqModel.PlayerId, reqModel.OpponentId);
+                    result.Data = new ChallengePlayerData() 
+                    {
+                        PlayerId = reqModel.PlayerId,
+                        OpponentId = reqModel.OpponentId,
+                        GameId = game.Id,
+                        StartingPlayer = RandomStartPlayer(reqModel.PlayerId, reqModel.OpponentId)
+                    };
                 }
             }
             else
             {
-                result.Error.ErrorArg = reqModel.PlayerId.ToString();
-                result.Error.ErrorCode = "error.unknown-user-id";
+                result.Error = new SimpleError()
+                {
+                    ErrorArg = player == null ? reqModel.PlayerId.ToString() : reqModel.OpponentId.ToString(),
+                    ErrorCode = "error.unknown-user-id"
+                };
             }
 
             return result;

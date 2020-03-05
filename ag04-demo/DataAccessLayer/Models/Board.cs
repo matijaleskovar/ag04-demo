@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace DataAccessLayer.Models
 {
+    [Table("Board")]
     public class Board : BaseEntity
     {
         public int GameId { get; set; }

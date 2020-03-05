@@ -5,6 +5,7 @@ using System.Text;
 
 namespace DataAccessLayer.Models
 {
+    [Table("Game")]
     public class Game : BaseEntity
     {
         public int PlayerId { get; set; }

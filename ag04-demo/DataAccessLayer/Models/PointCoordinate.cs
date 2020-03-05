@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace DataAccessLayer.Models
 {
+    [Table("PointCoordinate")]
     public class PointCoordinate : BaseEntity
     {
         public int BoardId { get; set; }

@@ -24,6 +24,7 @@ namespace ag04_demo.Controllers
             _playerService = playerService;
         }
 
+        [Route("{id}")]
         [HttpGet]
         public ActionResult GetPlayer(int id)
         {
@@ -60,7 +61,7 @@ namespace ag04_demo.Controllers
             return Ok(result);
 
         }
-        [Route("{int:opponent_id}/game")]
+        [Route("{opponent_id}/game")]
         [HttpPost]
         public ActionResult ChallengePlayer([FromRoute]int opponent_id, [FromBody]PlayerChallengeReqModel challengeData)
         {
@@ -68,7 +69,7 @@ namespace ag04_demo.Controllers
 
             var result = _playerService.ChallengePlayer(challengeData);
 
-            if (result.Data.GameId == 0)
+            if (result.Data == null)
             {
                 //It would be better 204 No Content, 404 is for missing endpoint
                 return NotFound(result.Error);
