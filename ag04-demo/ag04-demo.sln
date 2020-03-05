@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ag04-demo", "ag04-demo\ag04-demo.csproj", "{05ABBCB8-AC6D-4D2D-8907-E392A2E1F490}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ag04-demo", "ag04-demo\ag04-demo.csproj", "{05ABBCB8-AC6D-4D2D-8907-E392A2E1F490}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessAccessLayer", "BusinessAccessLayer\BusinessAccessLayer.csproj", "{6F2663CC-AF48-4B59-B0F6-E81467A05AE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessAccessLayer", "BusinessAccessLayer\BusinessAccessLayer.csproj", "{6F2663CC-AF48-4B59-B0F6-E81467A05AE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{FB029611-CC4D-4AC5-8D91-608C40B7ABF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{FB029611-CC4D-4AC5-8D91-608C40B7ABF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTO", "Entities\DTO.csproj", "{C435AB61-4F86-4774-81A6-60F064AFABD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTO", "Entities\DTO.csproj", "{C435AB61-4F86-4774-81A6-60F064AFABD1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

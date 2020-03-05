@@ -60,10 +60,12 @@ namespace ag04_demo.Controllers
             return Ok(result);
 
         }
-        [Route("game")]
+        [Route("{int:opponent_id}/game")]
         [HttpPost]
-        public ActionResult ChallengePlayer(PlayerChallengeReqModel challengeData)
+        public ActionResult ChallengePlayer([FromRoute]int opponent_id, [FromBody]PlayerChallengeReqModel challengeData)
         {
+            challengeData.OpponentId = opponent_id;
+
             var result = _playerService.ChallengePlayer(challengeData);
 
             if (result.Data.GameId == 0)

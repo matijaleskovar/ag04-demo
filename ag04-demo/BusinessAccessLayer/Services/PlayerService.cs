@@ -182,12 +182,15 @@ namespace BusinessAccessLayer.Services
 
             for(int i = 1; i <= 4; i++)
             {
-                result.Add(new PointCoordinate() { 
-                BoardId = boardId,
-                AxisX = i,
-                AxisY = i,
-                Hit = false,
-                ShipTypeId = (int)Enums.ShipType.PatrolCraft
+                result.Add(new PointCoordinate() 
+                {
+                    CreatedUTC = DateTime.UtcNow,
+                    ModifiedUTC = DateTime.UtcNow,
+                    BoardId = boardId,
+                    AxisX = i,
+                    AxisY = i,
+                    Hit = false,
+                    ShipTypeId = (int)Enums.ShipType.PatrolCraft
                 });
             }
 
