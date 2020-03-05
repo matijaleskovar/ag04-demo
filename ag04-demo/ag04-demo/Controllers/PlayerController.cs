@@ -30,6 +30,7 @@ namespace ag04_demo.Controllers
 
             if (result.Id == 0)
             {
+                // It would be better 204 No Content, 404 is for missing endpoint
                 return NotFound();
             }
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DataAccessLayer.Entities
+namespace DataAccessLayer.Models
 {
     public class BaseEntity
     {

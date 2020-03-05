@@ -1,4 +1,4 @@
-﻿using DataAccessLayer.Entities;
+﻿using DataAccessLayer.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,10 +12,10 @@ namespace DataAccessLayer
         {
         }
 
-        //public DemoContext(DbContextOptions options) : base(options)
-        //{
-        //}
+        public DemoContext(DbContextOptions options) : base(options)
+        {
+        }
 
-        public DbSet<Player> Player { get; set; }
+        public DbSet<Player> Players { get; set; }
     }
 }

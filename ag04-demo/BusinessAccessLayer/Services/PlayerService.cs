@@ -1,6 +1,6 @@
 ﻿using BusinessAccessLayer.Interfaces;
 using DataAccessLayer;
-using DataAccessLayer.Entities;
+using DataAccessLayer.Models;
 using DTO;
 using DTO.Player.Response;
 using System;
@@ -24,7 +24,7 @@ namespace BusinessAccessLayer.Services
 
             using (var context = new DemoContext())
             {
-                if (context.Player.Any(x => x.Email == reqModel.Email))
+                if (context.Players.Any(x => x.Email == reqModel.Email))
                 {
                     result.PlayerAlreadyExist = true;
 
@@ -33,7 +33,7 @@ namespace BusinessAccessLayer.Services
                 }
                 else
                 {
-                    context.Player.Add(entity);
+                    context.Players.Add(entity);
                     context.SaveChanges();
 
                     result.PlayerId = entity.Id;
@@ -49,7 +49,7 @@ namespace BusinessAccessLayer.Services
 
             using (var context = new DemoContext())
             {
-                var entity = context.Player.FirstOrDefault(x => x.Id == id);
+                var entity = context.Players.FirstOrDefault(x => x.Id == id);
 
                 if (entity != null)
                 {

@@ -31,7 +31,7 @@ namespace ag04_demo
         {
             services.AddDbContext<DemoContext>(options => options.UseSqlServer(Configuration["ConnectionString:AG04Demo"]));
             services.AddControllers();
-            services.AddTransient<IPlayerService, PlayerService>();
+            services.AddScoped<IPlayerService, PlayerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
