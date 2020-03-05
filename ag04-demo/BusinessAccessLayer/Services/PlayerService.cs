@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using DTO.Player.Request;
 
 namespace BusinessAccessLayer.Services
 {
@@ -88,5 +89,11 @@ namespace BusinessAccessLayer.Services
 
             return result;
         }
+
+        public PlayerChallengeRespModel ChallengePlayer(PlayerChallengeReqModel reqModel)
+        {
+            return null;
+        }
+
     }
 }

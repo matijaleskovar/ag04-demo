@@ -1,4 +1,5 @@
 ﻿using DTO;
+using DTO.Player.Request;
 using DTO.Player.Response;
 using System;
 using System.Collections.Generic;
@@ -11,5 +12,6 @@ namespace BusinessAccessLayer.Interfaces
         public PlayerSignInRespModel PlayerSignUp( PlayerSignInReqModel reqModel);
         public PlayerProfileRespModel GetPlayerProfile(int id);
         public List<PlayerProfileRespModel> GetAllPlayerProfiles();
+        public PlayerChallengeRespModel ChallengePlayer(PlayerChallengeReqModel reqModel);
     }
 }

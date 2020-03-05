@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BusinessAccessLayer.Interfaces;
 using BusinessAccessLayer.Services;
 using DTO;
+using DTO.Player.Request;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -35,7 +36,6 @@ namespace ag04_demo.Controllers
             }
 
             return Ok(result);
-
         }
 
         [HttpPost]
@@ -53,13 +53,26 @@ namespace ag04_demo.Controllers
 
         [Route("list")]
         [HttpGet]
-        public ActionResult GetPlayers()
-        
+        public ActionResult GetPlayers()       
         {
             var result = _playerService.GetAllPlayerProfiles();
 
             return Ok(result);
 
+        }
+        [Route("game")]
+        [HttpPost]
+        public ActionResult ChallengePlayer(PlayerChallengeReqModel challengeData)
+        {
+            var result = _playerService.ChallengePlayer(challengeData);
+
+            if (result.Data.GameId == 0)
+            {
+                // It would be better 204 No Content, 404 is for missing endpoint
+                return NotFound(result.Error);
+            }
+
+            return Ok(result.Data);
         }
     }
 }
