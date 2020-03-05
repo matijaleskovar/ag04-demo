@@ -9,6 +9,7 @@ namespace DataAccessLayer.Models
         public int BoardId { get; set; }
         public int AxisX { get; set; }
         public int AxisY { get; set; }
+        public bool Hit { get; set; }
         public int ShipTypeId { get; set; }
 
         public virtual Board Board { get; set; }

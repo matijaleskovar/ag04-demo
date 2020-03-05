@@ -13,6 +13,11 @@ namespace DataAccessLayer
         }
 
         public DbSet<Player> Players { get; set; }
+        public DbSet<Game> Games { get; set; }
+        public DbSet<Board> Boards { get; set; }
+        public DbSet<PointCoordinate> PointCoordinates { get; set; }
+        public DbSet<GameStatus> GameStatuses { get; set; }
+        public DbSet<ShipType> ShipTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
