@@ -61,11 +61,11 @@ namespace ag04_demo.Controllers
             return Ok(result);
 
         }
-        [Route("{opponent_id}/game")]
+        [Route("{opponentId}/game")]
         [HttpPost]
-        public ActionResult ChallengePlayer([FromRoute]int opponent_id, [FromBody]PlayerChallengeReqModel challengeData)
+        public ActionResult ChallengePlayer([FromRoute]int opponentId, [FromBody]PlayerChallengeReqModel challengeData)
         {
-            challengeData.OpponentId = opponent_id;
+            challengeData.OpponentId = opponentId;
 
             var result = _playerService.ChallengePlayer(challengeData);
 
